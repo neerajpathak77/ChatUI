@@ -31,7 +31,7 @@ export default class App extends Component {
         {id:8, date:"9:50 am", type:'in',  message: "Lorem ipsum dolor sit a met",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
         {id:9, date:"9:50 am", type:'in',  message: "Lorem ipsum dolor sit a met",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
         {id:10, date:"9:50 am", type:'in',  message: "L",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"}
-      ],
+      ].reverse(),
       showMic: true,
       showEmoji: false,
       showAttachment: false,
@@ -76,7 +76,7 @@ export default class App extends Component {
       );
     } else {
       return (
-        <TouchableOpacity onPress ={() => this.addMessage()}>
+        <TouchableOpacity onPress ={this.appendMessage}>
             <Image style={styles.sendIcon} source={require("../test/img/send_white.png")} />
         </TouchableOpacity>
       );
@@ -124,6 +124,7 @@ renderAvatar = (item, inMessage) => {
     return (
       <View style={styles.container}>
         <FlatList style={styles.list}
+          inverted
           data={this.state.data}
           keyExtractor= {(item) => {
             return item.id;
@@ -235,6 +236,28 @@ renderAvatar = (item, inMessage) => {
       </View>
     );
   }
+
+
+
+
+
+
+// ***********************************************Logical Part Start**********************************************
+
+appendMessage = () => {
+  let newMessage = {id:11, date:"9:50 am", type:'in',  message: "This is a new message",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"}
+
+  this.setState({data: [newMessage, ...this.state.data]})
+
+
+}
+
+updateMessage = (message) => {
+
+}
+
+// *************************************************Logical Part End***********************************************
+
 }
 
 const styles = StyleSheet.create({
