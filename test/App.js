@@ -98,26 +98,7 @@ export default class App extends Component {
                 <TouchableOpacity onPress={this.onAvatarClick} onLongPress={this.onLongAvatarClick} style={styles.avatarContainer}>
                   <Image source={require("../test/img/avatar.png")} style={item.type === 'in' ? styles.avatar : styles.avataro} />
                 </TouchableOpacity>
-                {/* <View style={[styles.item, itemStyle]}>
-                <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
-                {!inMessage && this.renderDate(item.date)}
-                <View style={[styles.balloon]}>
-                  <Text>{item.message}</Text>
-                </View>
-                {inMessage && this.renderDate(item.date)}
-                <View style={[styles.balloon]}>
-                  <Text>{item.message}</Text>
-                </View>
-                <View style={{borderWidth: 3,borderColor: "black"}}>
-                {this.renderDate(item.date)}
-                </View>
-                </TouchableOpacity>
-              </View> */}
-
-
-
-
-                <View style={[styles.itemOutt]}>
+                <View style={[styles.item, itemStyle]}>
                 <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
                 {/* {!inMessage && this.renderDate(item.date)}
                 <View style={[styles.balloon]}>
@@ -127,15 +108,11 @@ export default class App extends Component {
                 <View style={[styles.balloon]}>
                   <Text>{item.message}</Text>
                 </View>
-                <View style={{borderWidth: 3,borderColor: "black",flexDirection: "row",flex: 0.5}}>
+                <View style={{borderWidth: 3,borderColor: "black"}}>
                 {this.renderDate(item.date)}
                 </View>
                 </TouchableOpacity>
               </View>
-
-
-
-
             </View>
             )
           }}/>
@@ -306,8 +283,6 @@ const styles = StyleSheet.create({
     maxWidth: 250,
     padding: 15,
     borderRadius: 20,
-    flex: 0.5,
-    flexDirection: "row"
   },
   itemIn: {
     alignSelf: 'flex-start',
@@ -333,16 +308,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     padding:5,
   },
-  itemOutt: {
-    borderWidth: 3,
-    borderColor: "green",
-    marginVertical: 14,
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor:"#eeeeee",
-    borderRadius:10,
-    padding:5,
-  },
+
   // STYLES
   attachView: {
     height: 60,
