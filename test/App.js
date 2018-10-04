@@ -18,6 +18,7 @@ console.disableYellowBox = true;
 export default class App extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       data: [
         {id:1, date:"9:50 am", type:'out',  message: "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet", avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
@@ -81,6 +82,44 @@ export default class App extends Component {
       );
     }
   }
+
+ renderMessageBubble = (item, inMessage) => {
+  let itemStyle = inMessage ? styles.itemIn : styles.itemOut;
+  return(
+      <View style={[styles.item, itemStyle]}>
+            {inMessage
+            ?                 
+              <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
+              <View style={[styles.balloon]}>
+                <Text>{item.message}</Text>
+              </View>
+              <View style={{borderWidth: 3,borderColor: "black"}}>
+              {this.renderDate(item.date)}
+              </View>
+              </TouchableOpacity>
+            
+            :<TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick} style={{flexDirection: "row"}}>
+            <View style={{ borderWidth: 3, borderColor: "black",alignSelf:"flex-end"}}>
+              {this.renderDate(item.date)}
+            </View>
+            <View style={[styles.balloon]}>
+              <Text>{item.message}</Text>
+            </View>
+            </TouchableOpacity>
+              }
+          </View>
+    )
+}
+
+renderAvatar = (item, inMessage) => {
+  return(
+    <TouchableOpacity onPress={this.onAvatarClick} onLongPress={this.onLongAvatarClick} style={styles.avatarContainer}>
+      <Image source={require("../test/img/avatar.png")} style={inMessage ? styles.avatar : styles.avataro} />
+    </TouchableOpacity>
+  )
+}
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -93,35 +132,10 @@ export default class App extends Component {
             console.log(item);
             const item = message.item;
             let inMessage = item.type === 'in';
-            let itemStyle = inMessage ? styles.itemIn : styles.itemOut;
             return (
               <View style={{flexDirection: 'column-reverse',borderWidth: 3, borderColor: "red"}} >
-                <TouchableOpacity onPress={this.onAvatarClick} onLongPress={this.onLongAvatarClick} style={styles.avatarContainer}>
-                  <Image source={require("../test/img/avatar.png")} style={item.type === 'in' ? styles.avatar : styles.avataro} />
-                </TouchableOpacity>
-                <View style={[styles.item, itemStyle]}>
-                {inMessage
-                ?                 
-                  <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
-                  <View style={[styles.balloon]}>
-                    <Text>{item.message}</Text>
-                  </View>
-                  <View style={{borderWidth: 3,borderColor: "black"}}>
-                  {this.renderDate(item.date)}
-                  </View>
-                  </TouchableOpacity>
-                
-                :<TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick} style={{flexDirection: "row"}}>
-                <View style={{ borderWidth: 3, borderColor: "black",alignSelf:"flex-end"}}>
-                  {this.renderDate(item.date)}
-                </View>
-                <View style={[styles.balloon]}>
-                  <Text>{item.message}</Text>
-                </View>
-                </TouchableOpacity>
-                  }
-
-              </View>
+                {this.renderAvatar(item, inMessage)}
+                {this.renderMessageBubble(item, inMessage)}
             </View>
             )
           }}/>
