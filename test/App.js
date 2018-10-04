@@ -20,7 +20,7 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [
-        {id:1, date:"9:50 am", type:'in',  message: "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet", avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
+        {id:1, date:"9:50 am", type:'out',  message: "Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet", avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
         {id:2, date:"9:50 am", type:'out', message: "Lorem ipsum dolor sit amet",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
         {id:3, date:"9:50 am", type:'in',  message: "Lorem ipsum dolor sit a met",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
         {id:4, date:"9:50 am", type:'in',  message: "Lorem ipsum dolor sit a met",avatar: "/home/guptaharsh/Desktop/Sample/test/StarRating/star-filled.png"},
@@ -60,6 +60,9 @@ export default class App extends Component {
       </Text>
     );
   }
+  addMessage =() => {
+
+  }
   renderImage() {
     if (this.state.showMic) {
       return (
@@ -72,15 +75,13 @@ export default class App extends Component {
       );
     } else {
       return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress ={() => this.addMessage()}>
             <Image style={styles.sendIcon} source={require("../test/img/send_white.png")} />
         </TouchableOpacity>
       );
     }
   }
   render() {
-    console.log("HE",height)
-    console.log("WID",width)
     return (
       <View style={styles.container}>
         <FlatList style={styles.list}
@@ -99,19 +100,27 @@ export default class App extends Component {
                   <Image source={require("../test/img/avatar.png")} style={item.type === 'in' ? styles.avatar : styles.avataro} />
                 </TouchableOpacity>
                 <View style={[styles.item, itemStyle]}>
-                <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
-                {/* {!inMessage && this.renderDate(item.date)}
+                {inMessage
+                ?                 
+                  <TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick}>
+                  <View style={[styles.balloon]}>
+                    <Text>{item.message}</Text>
+                  </View>
+                  <View style={{borderWidth: 3,borderColor: "black"}}>
+                  {this.renderDate(item.date)}
+                  </View>
+                  </TouchableOpacity>
+                
+                :<TouchableOpacity onLongPress={this.onMsgLongClick} onPress={this.onMsgClick} style={{flexDirection: "row"}}>
+                <View style={{ borderWidth: 3, borderColor: "black",alignSelf:"flex-end"}}>
+                  {this.renderDate(item.date)}
+                </View>
                 <View style={[styles.balloon]}>
                   <Text>{item.message}</Text>
-                </View>
-                {inMessage && this.renderDate(item.date)} */}
-                <View style={[styles.balloon]}>
-                  <Text>{item.message}</Text>
-                </View>
-                <View style={{borderWidth: 3,borderColor: "black"}}>
-                {this.renderDate(item.date)}
                 </View>
                 </TouchableOpacity>
+                  }
+
               </View>
             </View>
             )
@@ -280,7 +289,7 @@ const styles = StyleSheet.create({
   balloon: {
     borderWidth: 2,
     borderColor: "blue",
-    maxWidth: 250,
+    maxWidth: 200,
     padding: 15,
     borderRadius: 20,
   },
