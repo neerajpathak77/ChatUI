@@ -47,6 +47,7 @@ export default class App extends Component {
   }
   onMsgClick = () => {
     console.log("Click")
+    this.updateMessage({})
   }
   onAvatarClick = () => {
     console.log("Avatar Click")
@@ -60,9 +61,6 @@ export default class App extends Component {
         {date}
       </Text>
     );
-  }
-  addMessage =() => {
-
   }
   renderImage() {
     if (this.state.showMic) {
@@ -144,21 +142,29 @@ renderAvatar = (item, inMessage) => {
         {this.state.showAttachment ? (
           <View style={styles.attachView}>
               <View style={styles.styleIconView}>
-                  <Image style={styles.documentIcon} source={require("../test/img/document.png")} />
+                <TouchableOpacity>
+                <Image style={styles.documentIcon} source={require("../test/img/document.png")} />
+                </TouchableOpacity>
               </View>
 
               <View style={styles.styleIconView}>
-                <Image style={styles.videoIcon} source={require("../test/img/videobg.png")} />
+              <TouchableOpacity>
+              <Image style={styles.videoIcon} source={require("../test/img/videobg.png")} />
+              </TouchableOpacity>
               </View>
 
               <View style={styles.styleIconView}>
-                <Image style={styles.imageIcon} source={require("../test/img/image.png")} />
+              <TouchableOpacity>
+              <Image style={styles.imageIcon} source={require("../test/img/image.png")} />
+              </TouchableOpacity>
               </View>
 
               <View style={styles.styleIconView}>
-                <Image
+              <TouchableOpacity>
+              <Image
                   style={styles.audioIcon}
                   source={require("../test/img/record_audio.png")}/>
+              </TouchableOpacity>
               </View>
           </View>
         ) : null}
@@ -254,12 +260,34 @@ appendMessage = () => {
 
 updateMessage = (message) => {
 
+  let newArr = [...this.state.data]
+
+  let data = newArr.map((item)=>{
+
+  if(item.id == 11) {
+    item.message = 'XXXXXXXXXXXXXX'
+  } 
+
+  return item
+})
+
+this.setState({data})
+
+
 }
 
 // *************************************************Logical Part End***********************************************
 
 }
-
+attachVideo = () => {
+  //TBD
+}
+attachImage = () => {
+  //TBD
+}
+attachFile = () => {
+  //TBD
+}
 const styles = StyleSheet.create({
   container:{
     flex:1,
